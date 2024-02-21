@@ -20,12 +20,16 @@ const NewTour = () => {
       if (existingTour) return existingTour;
       const currentTokens = await fetchUserTokensById(userId);
       if (currentTokens < 300) {
-        toast.error('Token balance is too low...');
+        // 'Token balance is too low...'
+        toast.error('Votre nombre de tokens est trop faible...',{
+          duration: 5000 },);
         return;
       }
       const newTour = await generateTourResponse(destination);
       if (!newTour) {
-        toast.error('No matching city found...');
+        // 'No matching city found...'
+        toast.error('Pas de ville correspondante trouvée...',{
+          duration: 5000 },);
         return null;  
       }
       const response =  await createNewTour(newTour.tour);
@@ -48,14 +52,18 @@ const NewTour = () => {
   return (
     <>
       <form onSubmit={handleSubmit} className="max-w-2xl">
-        <h2 className="mb-4">Select your dream destination</h2>
+        <h2 className="mb-4">
+          {/* Select your dream destination */}
+          Selectionnez votre destination de rêve
+        </h2>
         <div className="join w-full">
           <input type="text" className="input input-bordered join-item w-full"
-          placeholder="city" name="city" required />
+          placeholder="ville" name="city" required />
           <input type="text" className="input input-bordered join-item w-full"
-          placeholder="country" name="country" required />
+          placeholder="pays" name="country" required />
           <button className="btn btn-primary join-item" type="submit">
-            generate tour
+            {/* generate tour */}
+            générez un voyage
           </button>
         </div>
       </form>

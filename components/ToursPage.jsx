@@ -10,16 +10,19 @@ const ToursPage = () => {
     queryKey: ['tours', searchValue],
     queryFn: () => getAllTours(searchValue),
   });
+  // 'please wait...'
+  // 'reset'
+  // "enter city or country here..."
   return (
     <>
       <form className="max-w-lg mb-12">
         <div className="join w-full">
           <input className="input input-bordered join-item w-full"
-          type="text" placeholder="enter city or country here..."
+          type="text" placeholder="entrez une ville ou un pays ici..."
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)} />
           <button disabled={isPending} onClick={() => setSearchValue('')} type="button" className="btn btn-primary join-item">
-            {isPending ? 'please wait...' : 'reset'}
+            {isPending ? 'veuillez attendre...' : 'remettre à zero'}
           </button>
         </div>
       </form>
