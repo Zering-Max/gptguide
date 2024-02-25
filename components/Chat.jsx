@@ -13,24 +13,26 @@ const Chat = () => {
   const { userId } = useAuth();
   const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
-
+  // "Token balance is too low..."
+  // "Something went wrong..."
+  // `${newTokens} tokens remaining...`
   const { mutate, isPending } = useMutation({
     mutationFn: async query => {
       const currentTokens = await fetchUserTokensById(userId);
       if (currentTokens < 100) {
-        toast.error("Token balance is too low...",{
+        toast.error("Vous n'avez pas assez de tokens...",{
           duration: 5000 },);
         return;
       }
       const response = await generateChatResponse([...messages, query]);
       if (!response) {
-        toast.error("Something went wrong...",{
+        toast.error("Quelque chose ne ve pas dans votre question...",{
           duration: 5000 },);
         return;
       }
       setMessages(prev => [...prev, response.message]);
       const newTokens = await subtractTokens(userId, response.usedTokens);
-      toast.success(`${newTokens} tokens remaining...`,{
+      toast.success(`Il vous reste ${newTokens} tokens...`,{
         duration: 5000 },);
     },
   });
